@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+env/
+api/test/
+api/config/__pycache__/
+api/config/*.json
+
+api/__pycache__/
+api/model/__pycache__/
+api/*/__pycache__/
+api/dubbings/
+api/log/
+api/database/

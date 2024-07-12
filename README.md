@@ -17,8 +17,10 @@ Essa API é responsável por realizar o fluxo de dublagem dos vídeos. Para isso
 * Será necessário instalar o docker para executar a aplicação em um container.
 * Na raiz do projeto, Crie a imagem por meio do Dockerfile:  
 **docker build -t dub_videos_main .**  
-* Após criar a imagem, execute o comando:  
-**docker run -it -p 5000:5000 dub_videos_main**  
+* Após criar a imagem, certifique-se que uma rede foi criada para que este container e os containers das outras APIs possam se comunicar:
+**docker network create dub_videos_network**
+* Após criar a rede, suba o container e passe como variáveis os nomes dos hosts para a Transcription API e para Speech Api. Isso quer dizer que você deverá executá-las primeiro, conforme suas instruções, para depois executar essa API principal por meio do comando a seguir:  
+**docker run -it --network=dub_videos_network --hostname=dub_videos_main -e T_HOST=dub_videos_transcription -e S_HOST=dub_videos_speech -p 5000:5000 dub_videos_main**  
 * A aplicação estará disponível pela porta local 5000
 * Abra o endereço:  
 http://localhost:5000   

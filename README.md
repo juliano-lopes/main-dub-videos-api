@@ -1,22 +1,28 @@
-# API para aplicação DubVideos
+# API principal para aplicação DubVideos
 * [Front-end Dub Videos](https://github.com/juliano-lopes/dub-videos-front-end)
+
 ## Como utilizar
+Essa API é responsável por realizar o fluxo de dublagem dos vídeos. Para isso são utilizadas duas outras APIs:  
+* API para transcrição e tradução das transcrições:  
+[Transcription API](https://github.com/juliano-lopes/transcription-api)  
+* E a API para converter o texto da tradução da transcrição em áudio:  
+[Text to Speech API](https://github.com/juliano-lopes/text-to-speech-api)  
+### Passos para utilizá-la:
 * Faça o clone ou baixe o projeto:  
-**git clone https://github.com/juliano-lopes/dub-videos-api.git**  
+**git clone https://github.com/juliano-lopes/main-dub-videos-api.git**  
 * Entre na pasta do projeto:  
-**cd dub-videos-api**
+**cd main-dub-videos-api**  
 * Insira o arquivo com a chave de serviço no caminho:  
 **api/config/**
-* Utilize python versão 3.12.2  
-* Execute o comando para instalar as dependências listadas no arquivo requirements.txt:  
-**OBS.: recomendado criar ambiente virtual no python**  
-**pip install -r requirements.txt**  
-* Navegue para a pasta "api":  
-**cd api**  
-* Execute o comando:  
-**flask run**  
-* Abra no navegador o endereço para acessar a interface da API:  
- **http://localhost:5000**  
+* Será necessário instalar o docker para executar a aplicação em um container.
+* Na raiz do projeto, Crie a imagem por meio do Dockerfile:  
+**docker build -t dub_videos_main .**  
+* Após criar a imagem, execute o comando:  
+**docker run -it -p 5000:5000 dub_videos_main**  
+* A aplicação estará disponível pela porta local 5000
+* Abra o endereço:  
+http://localhost:5000   
+no navegador.  
 
  ## Como testar
 

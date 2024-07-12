@@ -42,35 +42,6 @@ def home():
     """
     return redirect('/openapi')
 
-@app.post('/dub-transcription', tags=[dubbing_tag],
-          responses={"200": TranscriptionSchema, "400": ErrorSchema})
-async def get_dub_transcription(form: UrlVideoSchema):
-    """ realiza uma dublagem do video passado pela url
-
-    Retorna uma representação dos dados referente à dublagem.
-    """
-    
-    logger.debug(f"dublando video do YouTube com a url: '{form.url}, idioma de origem: {form.original_language}, idioma destino: {form.target_language}'")
-    try:
-        video_downloader = VideoDownloader(form.url)
-        video_title, file_name, file_path = video_downloader.download_youtube_video()
-        auth = Authentication(Config.credential_key, Config.bucket_name)
-        video = VideoConverter(video_title, file_path, f"{Util.get_paths(file_name)['destination']}", "wav")
-        audio_path = video.convert()
-        audio = AudioConverter(audio_path, f"{Util.get_paths(file_name)['final_destination']}/audio_original_video_mono_{ Util.get_paths(video_title)['name']}", "wav")
-        audio_video_mono = audio.convert()
-        audio = AudioConverter(audio_video_mono, Util.get_paths(file_name)['final_destination'], "wav")
-        dubbing_service = DubbingService(auth, video, audio, form.original_language, form.target_language)
-        data = dubbing_service.make_dubbing()
-        print("pegou data, title foi ", data["video_title"])
-        return {"uri": "ok"}, 200
-    except Exception as e:
-        # caso um erro fora do previsto
-        error_msg = f"Não foi possível obter uri ({form.url}):\n{e}"
-        logger.warning(f"Erro obter uri. {error_msg}")
-        return {"message": error_msg}, 400
-
-
 @app.post('/dubbing-video-url', tags=[dubbing_tag],
           responses={"200": DubbingViewSchema, "400": ErrorSchema})
 async def dub_video_by_url(form: UrlVideoSchema):

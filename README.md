@@ -1,4 +1,4 @@
-# API principal para aplicação DubVideos
+# Componente 3 - API principal para aplicação DubVideos
 * [Front-end Dub Videos](https://github.com/juliano-lopes/dub-videos-front-end)
 
 ## Como utilizar

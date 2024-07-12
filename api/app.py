@@ -15,7 +15,7 @@ from config.config import Config
 from model.dubbing import Dubbing
 from service.dubbing_service import DubbingService
 from schemas.error import ErrorSchema
-from schemas.dubbing import DeleteDubbingSchema, DeleteDubbingSuccessSchema, DubbingViewSchema, FileVideoSchema, ListDubbingViewSchema, UrlVideoSchema, show_dubbings, TranscriptionSchema
+from schemas.dubbing import DeleteDubbingSchema, DeleteDubbingSuccessSchema, DubbingViewSchema, FileVideoSchema, ListDubbingViewSchema, UpdateDubbingTitleSchema, UrlVideoSchema, show_dubbings, TranscriptionSchema
 from util import Util
 from model.video_converter import VideoConverter
 from flask_openapi3 import OpenAPI, Info, Tag
@@ -199,21 +199,24 @@ def delete_dubbing(form: DeleteDubbingSchema):
     except Exception as e:
         return {"message": f"Ocorreu um erro ao tentar apagar Dublagem com id {id}:\n{e}"}, 400
 
-@app.put('/dubbings', tags=[dubbing_tag], responses={"200": DeleteDubbingSuccessSchema, "400": ErrorSchema, "404": ErrorSchema})
-async def update_dubbing(form: DeleteDubbingSchema):
-    """ atualiza no banco de dados uma dublagem com base no id passado pelo corpo da requisição """
+@app.put('/dubbings', tags=[dubbing_tag], responses={"200": UpdateDubbingTitleSchema, "400": ErrorSchema, "404": ErrorSchema})
+async def update_dubbing(form: UpdateDubbingTitleSchema):
+    """ atualiza no banco de dados o título de uma dublagem com base no id passado pelo corpo da requisição """
     id = form.id
+    title = form.video_title
     try:
         session = Session()
         dubbing = session.query(Dubbing).filter(Dubbing.id == id).first()
         
-        session.commit()
+        #session.commit()
         data = {}
         if dubbing:
-            data = {"id": id, "message": f"Dublagem apagada com sucesso"}
+            dubbing.video_title = title
+            session.commit()
+            data = {"id": id, "video_title": title}
             return data, 200
         else:
             data = {"message": f"Não existe dublagem com id {id}"}
             return data, 404
     except Exception as e:
-        return {"message": f"Ocorreu um erro ao tentar apagar Dublagem com id {id}:\n{e}"}, 400
+        return {"message": f"Ocorreu um erro ao tentar atualizar Dublagem com id {id}:\n{e}"}, 400

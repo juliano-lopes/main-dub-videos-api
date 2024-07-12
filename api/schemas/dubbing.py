@@ -48,3 +48,7 @@ class DeleteDubbingSuccessSchema(BaseModel):
 
 class TranscriptionSchema(BaseModel):
     uri: str = "gs://resource.wav"
+
+class UpdateDubbingTitleSchema(BaseModel):
+    id: int = 1
+    video_title: str = "Novo título do vídeo"

@@ -1,2 +1,2 @@
-from schemas.dubbing import FileVideoSchema, UrlVideoSchema, DubbingViewSchema, ListDubbingViewSchema, DeleteDubbingSchema, DeleteDubbingSuccessSchema, TranscriptionSchema
+from schemas.dubbing import FileVideoSchema, UrlVideoSchema, DubbingViewSchema, ListDubbingViewSchema, DeleteDubbingSchema, DeleteDubbingSuccessSchema, TranscriptionSchema, UpdateDubbingTitleSchema
 from schemas.error import ErrorSchema

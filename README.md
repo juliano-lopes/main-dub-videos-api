@@ -35,4 +35,4 @@ e defina o idioma de origem como en-US e o idioma de destino como pt-BR.
 * [Acesse e siga os passos caso deseje utilizar o front-end Dub Videos](https://github.com/juliano-lopes/dub-videos-front-end)
 
 ## Apresentação da Aplicação
-* [Assista a o vídeo de aprensentação da aplicação Dub Videos](https://youtu.be/tfAVGTcRtCA)
+* [Assista a o vídeo de aprensentação da aplicação Dub Videos](https://youtu.be/ISk4ukqWnfg)

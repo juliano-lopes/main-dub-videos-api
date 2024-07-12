@@ -34,8 +34,9 @@ class DubbingService:
         blob = self.auth.get_bucket().blob(nome_blob)
         blob.delete()
     def make_dubbing(self):
-        transcription_api = "http://localhost:5001/transcription_gen_ai"
-        speech_api = "http://localhost:5002/speech"
+        transcription_api = f"http://{os.environ["T_HOST"]}:5001/transcription_gen_ai"
+        speech_api = f"http://{os.environ["S_HOST"]}:5002/speech"
+        print(f"Endereços APIs: {transcription_api}. {speech_api}.")
 
         destination = Util.get_paths(self.video_converter.file)['destination']
         final_destination = Util.get_paths(self.video_converter.file)['final_destination']
